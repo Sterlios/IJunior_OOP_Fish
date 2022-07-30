@@ -7,19 +7,19 @@ namespace Aquarium
     class Aquarium
     {
         private Random _random = new Random();
-        private List<Fish> _fishList;
+        private List<Fish> _fishes;
         private int _maxFishCount = 15;
 
         public Aquarium()
         {
-            _fishList = new List<Fish>();
+            _fishes = new List<Fish>();
         }
 
         public bool TryAddFish()
         {
-            if(_fishList.Count < _maxFishCount)
+            if(_fishes.Count < _maxFishCount)
             {
-                _fishList.Add(new Fish());
+                _fishes.Add(new Fish());
                 return true;
             }
             else
@@ -30,11 +30,11 @@ namespace Aquarium
 
         public bool TryDeleteFish()
         {
-            if (_fishList.Count > 0)
+            if (_fishes.Count > 0)
             {
-                int randomIndex = _random.Next(_fishList.Count);
+                int randomIndex = _random.Next(_fishes.Count);
 
-                _fishList.RemoveAt(randomIndex);
+                _fishes.RemoveAt(randomIndex);
 
                 return true;
             }
@@ -46,20 +46,14 @@ namespace Aquarium
 
         public void OldenAllFish()
         {
-            List<Fish> fishList = new List<Fish>();
-
-            foreach (Fish fish in _fishList)
+            for(int i = 0; i < _fishes.Count; i++)
             {
-                fishList.Add(fish);
-            }
+                _fishes[i].Olden();
 
-            foreach (Fish fish in fishList)
-            {
-                fish.Olden();
-
-                if (fish.IsAlive == false)
+                if (_fishes[i].IsAlive == false)
                 {
-                    _fishList.Remove(fish);
+                    _fishes.Remove(_fishes[i]);
+                    i--;
                 }
             }
         }
@@ -72,9 +66,9 @@ namespace Aquarium
             {
                 Console.Write((i+1) + ") ");
 
-                if(i < _fishList.Count)
+                if(i < _fishes.Count)
                 {
-                    Console.WriteLine(_fishList[i]);
+                    Console.WriteLine(_fishes[i]);
                 }
                 else
                 {

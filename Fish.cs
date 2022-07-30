@@ -6,7 +6,7 @@ namespace Aquarium
 {
     class Fish
     {
-        public static int Id;
+        private static int _ids;
         private Random _random;
         private int _health;
         private int _id;
@@ -19,14 +19,14 @@ namespace Aquarium
             int maxHelth = 20;
 
             _random = new Random();
-            Id++;
-            _id = Id;
+            _ids++;
+            _id = _ids;
             _health = _random.Next(minHelth, maxHelth);
         }
 
         static Fish()
         {
-            Id = 0;
+            _ids = 0;
         }
 
         public void Olden()
